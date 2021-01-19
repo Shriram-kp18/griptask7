@@ -1,0 +1,79 @@
+ #Text mining is a process getting a valuable information from the sentence by breaking the words into tokens.
+#We are using Natural language processing to do this mining.
+#first step tokenization
+import pandas as pd
+import numpy as np
+import nltk
+import os
+import nltk.corpus
+# sample text for performing tokenization
+text = "Bride gets honeymoon surprise: Chopper ride"
+from nltk.tokenize import word_tokenize
+token = word_tokenize(text)
+token
+#needed package
+nltk.download('punkt')
+# finding the frequency distinct in the tokens
+# Importing FreqDist library from nltk and passing token into FreqDist
+from nltk.probability import FreqDist
+fdist = FreqDist(token)
+fdist
+# To find the frequency of top 10 words
+fdist1 = fdist.most_common(10)
+fdist1
+# Importing Porterstemmer from nltk library
+# Checking for the word ‘giving’ 
+from nltk.stem import PorterStemmer
+pst = PorterStemmer()
+pst.stem("giving")
+# Checking for the list of words
+stm = ["checking", "checked", "checks"]
+for word in stm :
+   print(word+ ":" +pst.stem(word))
+#Lemmatisation
+# Importing Lemmatizer library from nltk
+from nltk.stem import WordNetLemmatizer
+lemmatizer = WordNetLemmatizer() 
+ 
+print("checks :", lemmatizer.lemmatize("checks")) 
+print("reels :", lemmatizer.lemmatize("reels"))
+nltk.download('wordnet')
+# importing stopwors from nltk library
+from nltk import word_tokenize
+from nltk.corpus import stopwords
+a = set(stopwords.words('english'))
+text = "win over cena satisfying but defeating undertaker bigger roman reigns."
+text1 = word_tokenize(text.lower())
+print(text1)
+stopwords = [x for x in text1 if x not in a]
+print(stopwords)
+nltk.download('stopwords')
+#splitting the text into the parts of speech such as nouns, verbs, pronouns, adverbs, conjunction, adjectives, interjection
+text = "Status quo will not be disturbed at Ayodhya; says Vajpayee"
+#Tokenize the text
+tex = word_tokenize(text)
+for token in tex:
+    print(nltk.pos_tag([token]))
+ nltk.download('averaged_perceptron_tagger')
+  nltk.download('maxent_ne_chunker')
+  nltk.download('words')
+  #named entity recognization
+text = "VIPs suffer as power supply is stopped to govt guest houses"
+#importing chunk library from nltk
+from nltk import ne_chunk
+# tokenize and POS Tagging before doing chunk
+token = word_tokenize(text)
+tags = nltk.pos_tag(token)
+chunk = ne_chunk(tags)
+chunk
+#chunking
+text = "Stephen Hawking keeps date with Mumbai"
+token = word_tokenize(text)
+tags = nltk.pos_tag(token)
+reg = "NP: {<DT>?<JJ>*<NN>}" 
+a = nltk.RegexpParser(reg)
+result = a.parse(tags)
+print(result)
+
+
+
